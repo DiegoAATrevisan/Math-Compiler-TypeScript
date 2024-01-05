@@ -1,3 +1,3 @@
-export interface validator {
-    caracter: boolean;
+export interface Validator {
+    exec: (caracter: string) => boolean;
 }

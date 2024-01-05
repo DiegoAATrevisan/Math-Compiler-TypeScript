@@ -1,3 +1,3 @@
-export interface convert {
-    caracter: number;
+export interface Convert {
+    exec: (caracter: string) => number;
 }
