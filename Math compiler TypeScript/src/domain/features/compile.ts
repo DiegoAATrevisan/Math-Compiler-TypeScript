@@ -23,6 +23,6 @@ const setMathCompiler: Setup = ({ calculator, convert, validator }: SetupProps) 
             splitedBody[index] = convert.exec(splitedBody[index]);
         }
     }
-
-    return { result: 159 }
+    const result = calculator.exec(splitedBody)
+    return { result }
 }
