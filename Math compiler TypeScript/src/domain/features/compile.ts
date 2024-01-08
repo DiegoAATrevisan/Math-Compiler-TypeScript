@@ -17,13 +17,13 @@ type Setup = (props: SetupProps) => MathCompiler
 
 
 export const setMathCompiler: Setup = ({ calculator, convert, validator }: SetupProps) => async (input) => {
-    const splitedBody: any[] = input.body.split("");
+    const splitedBody: Array<string | number> = input.body.split("");
     for (let index = 0; index < splitedBody.length; index++) {
-        if (validator.exec(splitedBody[index])) {
-            splitedBody[index] = convert.exec(splitedBody[index]);
+        if (validator.exec(splitedBody[index] as string)) {
+            splitedBody[index] = convert.exec(splitedBody[index] as string);
         }
     }
     const [num1, operador, num2] = splitedBody
-    const result = calculator.exec({ num1, operador, num2 })
+    const result = calculator.exec({ num1: num1 as number, operador: operador as string as "+" | "-" | "/" | "*", num2: num2 as number })
     return { result }
 }
