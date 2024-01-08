@@ -7,7 +7,7 @@ import { Validator } from "../providers/validator"
 
 type Input = Equation
 type Output = { result: number }
-type MathCompiler = (input: Input) => Promise<Output>
+export type MathCompiler = (input: Input) => Promise<Output>
 type SetupProps = {
     validator: Validator,
     convert: Convert,
@@ -16,13 +16,14 @@ type SetupProps = {
 type Setup = (props: SetupProps) => MathCompiler
 
 
-const setMathCompiler: Setup = ({ calculator, convert, validator }: SetupProps) => async (input) => {
+export const setMathCompiler: Setup = ({ calculator, convert, validator }: SetupProps) => async (input) => {
     const splitedBody: any[] = input.body.split("");
     for (let index = 0; index < splitedBody.length; index++) {
         if (validator.exec(splitedBody[index])) {
             splitedBody[index] = convert.exec(splitedBody[index]);
         }
     }
-    const result = calculator.exec(splitedBody)
+    const [num1, operador, num2] = splitedBody
+    const result = calculator.exec({ num1, operador, num2 })
     return { result }
 }
